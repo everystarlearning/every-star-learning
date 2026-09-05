@@ -1,0 +1,304 @@
+/* ========================================
+   EVERY STAR LEARNING
+   Main Stylesheet
+   ======================================== */
+
+
+/* ---------- SITE-WIDE STYLES ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #555;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* ---------- NAVIGATION ---------- */
+
+nav {
+    background-color: #084b7c;
+    padding: 18px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #ffd45c;
+}
+
+
+/* ---------- BUTTONS ---------- */
+
+.shop-button,
+.pack-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 28px;
+    background-color: #084b7c;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background-color 0.2s ease,
+                color 0.2s ease;
+}
+
+.shop-button:hover,
+.pack-button:hover {
+    background-color: #ffd45c;
+    color: #084b7c;
+}
+
+
+/* ---------- WELCOME SECTION ---------- */
+
+.welcome {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 70px 30px;
+    text-align: center;
+}
+
+.welcome h1 {
+    color: #084b7c;
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.welcome-intro {
+    font-size: 21px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.welcome p {
+    line-height: 1.7;
+}
+
+
+/* ---------- AGE GROUPS ---------- */
+
+.age-groups {
+    background-color: #f7f4fb;
+    padding: 70px 30px;
+    text-align: center;
+}
+
+.age-groups h2 {
+    color: #084b7c;
+    font-size: 34px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.age-intro {
+    max-width: 750px;
+    margin: 0 auto 40px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.age-cards {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.age-card {
+    background-color: white;
+    padding: 30px 20px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.age-card .star {
+    font-size: 36px;
+}
+
+.age-card h3 {
+    color: #084b7c;
+    font-size: 24px;
+    margin: 12px 0 5px;
+}
+
+.age-card .age {
+    color: #7b5aa6;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.age-card p {
+    line-height: 1.5;
+}
+
+.age-card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #084b7c;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.age-card a:hover {
+    color: #d99b00;
+}
+
+
+/* ---------- LEARNING PACK SECTION ---------- */
+
+.packs {
+    padding: 70px 20px;
+    background-color: white;
+}
+
+.packs-heading {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 40px;
+}
+
+.packs-heading h2 {
+    color: #084b7c;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.packs-heading p {
+    line-height: 1.6;
+}
+
+.featured-pack {
+    max-width: 1050px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.pack-image img {
+    width: 100%;
+    border-radius: 18px;
+}
+
+.pack-info {
+    line-height: 1.6;
+}
+
+.pack-info h3 {
+    color: #084b7c;
+    font-size: 28px;
+    margin-top: 0;
+}
+
+.pack-tagline {
+    color: #7b5aa6;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.pack-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pack-info li {
+    margin-bottom: 8px;
+}
+
+.pack-price {
+    color: #084b7c;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 22px 0 0;
+}
+
+
+/* ---------- TABLET ---------- */
+
+@media (max-width: 900px) {
+
+    .age-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+
+    nav {
+        padding: 14px 10px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 7px 10px;
+        font-size: 16px;
+    }
+
+    .welcome {
+        padding: 45px 20px;
+    }
+
+    .welcome h1 {
+        font-size: 30px;
+    }
+
+    .welcome-intro {
+        font-size: 18px;
+    }
+
+    .age-groups {
+        padding: 45px 20px;
+    }
+
+    .age-groups h2 {
+        font-size: 28px;
+    }
+
+    .age-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .packs {
+        padding: 45px 20px;
+    }
+
+    .packs-heading h2 {
+        font-size: 28px;
+    }
+
+    .featured-pack {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .pack-info h3 {
+        font-size: 24px;
+    }
+}
