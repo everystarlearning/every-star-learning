@@ -34,6 +34,17 @@
 
     <link rel="stylesheet" href="css/style.css">
 
+
+    <style>
+        .learning-resources { padding: 48px 20px; background: #f7f4fb; text-align: center; }
+        .learning-resources h2 { margin: 0 0 14px; color: #084b7c; font-size: clamp(26px, 4vw, 32px); }
+        .learning-resources > p { max-width: 680px; margin: 0 auto 24px; line-height: 1.6; }
+        .resource-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; list-style: none; padding: 0; margin: 0 auto; max-width: 1100px; }
+        .resource-links li { flex: 1 1 240px; max-width: 340px; }
+        .resource-links a { display: flex; align-items: center; justify-content: center; height: 100%; min-height: 64px; padding: 18px 20px; border: 2px solid #084b7c; border-radius: 14px; background: white; color: #084b7c; font-weight: bold; line-height: 1.5; text-decoration: underline; text-underline-offset: 3px; }
+        .resource-links a:hover { background: #ffd45c; }
+        .resource-links a:focus-visible { outline: 3px solid #7b5aa6; outline-offset: 4px; }
+    </style>
 </head>
 
 <body>
@@ -241,6 +252,18 @@
 
         </div>
 
+    </section>
+
+
+    <!-- LEARNING RESOURCES -->
+    <section class="learning-resources" aria-labelledby="learning-resources-heading">
+        <h2 id="learning-resources-heading">Learning resources</h2>
+        <p>Explore support for your child's learning, interests and individual needs.</p>
+        <ul class="resource-links">
+            <li><a href="/adhd-learning-resources.html">ADHD learning resources</a></li>
+            <li><a href="/autism-learning-resources.html">Autism learning resources</a></li>
+            <li><a href="/send-home-education-resources.html">SEND home education resources</a></li>
+        </ul>
     </section>
 
 </body>
