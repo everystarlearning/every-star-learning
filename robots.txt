@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://everystarlearning.co.uk/sitemap.xml
