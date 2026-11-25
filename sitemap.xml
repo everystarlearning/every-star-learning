@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://everystarlearning.co.uk/</loc>
-  </url>
-
-  <url>
-    <loc>https://everystarlearning.co.uk/faq.html</loc>
-  </url>
-
-  <url>
-    <loc>https://everystarlearning.co.uk/about.html</loc>
-  </url>
-
-  <url>
-    <loc>https://everystarlearning.co.uk/adhd-learning-resources.html</loc>
-  </url>
-
-  <url>
-    <loc>https://everystarlearning.co.uk/autism-learning-resources.html</loc>
-  </url>
-
-  <url>
-    <loc>https://everystarlearning.co.uk/send-home-education-resources.html</loc>
-  </url>
-
+<url><loc>https://everystarlearning.co.uk/</loc><lastmod>2026-11-25</lastmod></url>
+<url><loc>https://everystarlearning.co.uk/about.html</loc><lastmod>2026-11-25</lastmod></url>
+<url><loc>https://everystarlearning.co.uk/send-home-education-resources.html</loc><lastmod>2026-11-25</lastmod></url>
+<url><loc>https://everystarlearning.co.uk/shop.html</loc><lastmod>2026-11-25</lastmod></url>
+<url><loc>https://everystarlearning.co.uk/autism-learning-resources.html</loc><lastmod>2026-11-25</lastmod></url>
+<url><loc>https://everystarlearning.co.uk/adhd-learning-resources.html</loc><lastmod>2026-11-25</lastmod></url>
+<url><loc>https://everystarlearning.co.uk/packs.html</loc><lastmod>2026-11-25</lastmod></url>
+<url><loc>https://everystarlearning.co.uk/faq.html</loc><lastmod>2026-11-25</lastmod></url>
 </urlset>

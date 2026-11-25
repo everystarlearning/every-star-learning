@@ -1,4 +1,4 @@
-/* The existing Analytics property, shared by all six public pages.
+/* The existing Analytics property, shared by all public pages.
    Local previews are excluded. Etsy events contain fixed labels, never child details. */
 (function () {
   'use strict';
@@ -12,7 +12,7 @@
   tag.src = 'https://www.googletagmanager.com/gtag/js?id=G-QJ55EGXKBS';
   document.head.appendChild(tag);
   var pageNames = {
-    '/': 'home', '/index.html': 'home', '/about.html': 'about', '/faq.html': 'faq',
+    '/shop.html': 'shop', '/packs.html': 'packs', '/': 'home', '/index.html': 'home', '/about.html': 'about', '/faq.html': 'faq',
     '/adhd-learning-resources.html': 'adhd_resources',
     '/autism-learning-resources.html': 'autism_resources',
     '/send-home-education-resources.html': 'send_home_education'
@@ -24,11 +24,13 @@
     var url;
     try { url = new URL(link.href); } catch (_) { return; }
     if (url.hostname !== 'www.etsy.com' && url.hostname !== 'etsy.com') return;
-    var placement = link.dataset.etsyLocation || (link.closest('.age-card') ? 'age_group' : link.closest('#packs') ? 'pack_details' : 'page_cta');
+    var placement = link.dataset.etsyLocation || (link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('.product') ? 'product_card' : link.closest('.hero') ? 'hero' : link.closest('.review-band') ? 'review' : link.closest('.seasonal') ? 'seasonal' : link.closest('.closing') ? 'closing' : 'page_cta');
+    var product = url.pathname.match(/\/listing\/(\d+)/);
     window.gtag('event', 'etsy_click', {
       page_name: pageNames[location.pathname] || 'other',
       cta_location: placement,
       link_domain: 'etsy.com',
+      product_id: product ? product[1] : 'shop',
       transport_type: 'beacon'
     });
   }
