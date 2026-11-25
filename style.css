@@ -15,4 +15,4 @@
 
 @media(min-width:761px){#mobile-nav{display:none}}
 
-.footer-grid>div>a.tiktok-button{display:inline-flex;gap:10px;width:fit-content;min-height:48px;padding:12px 20px;margin-top:12px;font-size:14px;text-decoration:none}.tiktok-button::before{content:"♪";font-size:24px;line-height:1;color:var(--teal)}.footer-grid>div>a.tiktok-button:hover{background:var(--deep);text-decoration:none}
+.footer-grid>div>a.tiktok-button{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:10px;margin:6px 0 0 -10px;color:var(--ink);border-radius:6px;text-decoration:none}.tiktok-button svg{display:block;width:24px;height:24px}.footer-grid>div>a.tiktok-button:hover{color:var(--navy);background:var(--pale);text-decoration:none}
