@@ -12,7 +12,7 @@
   tag.src = 'https://www.googletagmanager.com/gtag/js?id=G-QJ55EGXKBS';
   document.head.appendChild(tag);
   var pageNames = {
-    '/shop.html': 'shop', '/packs.html': 'packs', '/': 'home', '/index.html': 'home', '/about.html': 'about', '/faq.html': 'faq',
+    '/christmas-winter-printables.html': 'christmas_winter', '/communication-visual-support.html': 'communication', '/learning-printables.html': 'learning_printables', '/sentence-builder-pencil-case.html': 'sentence_builder', '/shop.html': 'shop', '/packs.html': 'packs', '/': 'home', '/index.html': 'home', '/about.html': 'about', '/faq.html': 'faq',
     '/adhd-learning-resources.html': 'adhd_resources',
     '/autism-learning-resources.html': 'autism_resources',
     '/send-home-education-resources.html': 'send_home_education'
