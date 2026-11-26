@@ -4,6 +4,15 @@ menu?.addEventListener('click', () => {
  menu.setAttribute('aria-expanded',String(!opened));
  document.querySelector('#mobile-nav').hidden = opened;
 });
+
+// Close the disclosure with Escape and return keyboard focus to its control.
+document.addEventListener('keydown', event => {
+ if (event.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') {
+  menu.setAttribute('aria-expanded','false');
+  document.querySelector('#mobile-nav').hidden = true;
+  menu.focus();
+ }
+});
 const cards = [...document.querySelectorAll('[data-category]')];
 const filters = [...document.querySelectorAll('[data-filter]')];
 const search = document.querySelector('#product-search');

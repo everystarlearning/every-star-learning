@@ -42,9 +42,10 @@
     tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurement;
     document.head.appendChild(tag);
   }
-  var panel;
-  function showChoice() {
+  var panel, choiceOpener;
+  function showChoice(event) {
     if (!panel) return;
+    choiceOpener = event && event.currentTarget;
     panel.hidden = false;
     panel.querySelector('h2').focus();
   }
@@ -52,8 +53,8 @@
     choice = value;
     write(consentKey, JSON.stringify({value:value, time:Date.now()}));
     panel.hidden = true;
-    var settingsButton = document.querySelector('[data-cookie-settings]');
-    if (settingsButton) settingsButton.focus();
+    if (choiceOpener && choiceOpener.isConnected) choiceOpener.focus({preventScroll:true});
+    choiceOpener = null;
     if (value === 'granted') startAnalytics();
     else {
       window['ga-disable-' + measurement] = true;
@@ -87,6 +88,13 @@
     if (status) status.textContent = isStaff() ? 'Staff mode is ON. This browser sends no Google Analytics visits or Etsy clicks.' : 'Staff mode is OFF. Analytics follows the cookie choice in this browser.';
   }
   var pageNames = {
+    '/space-study-workbook-ages-5-11.html': 'space_study_workbook_ages_5_11',
+    '/space-activity-workbook-ages-3-5.html': 'space_activity_workbook_ages_3_5',
+    '/printable-number-cards-1-20.html': 'printable_number_cards_1_20',
+    '/printable-blending-word-cards.html': 'printable_blending_word_cards',
+    '/printable-phonics-cards.html': 'printable_phonics_cards',
+    '/supermarket-pretend-play-printable.html': 'supermarket_pretend_play_printable',
+    '/cafe-pretend-play-printable.html': 'cafe_pretend_play_printable',
     '/space-activity-printables.html': 'space_activity_printables',
     '/pretend-play-printables.html': 'pretend_play_printables',
     '/phonics-number-printables.html': 'phonics_number_printables',
