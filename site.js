@@ -1,16 +1,91 @@
-/* The existing Analytics property, shared by all public pages.
-   Local previews are excluded. Etsy events contain fixed labels, never child details. */
+/* Consent-first website analytics. No Google request before an affirmative choice.
+   Staff browsers and local previews never send analytics. */
 (function () {
   'use strict';
-  if (!['everystarlearning.co.uk', 'www.everystarlearning.co.uk'].includes(location.hostname)) return;
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-  window.gtag('js', new Date());
-  window.gtag('config', 'G-QJ55EGXKBS');
-  var tag = document.createElement('script');
-  tag.async = true;
-  tag.src = 'https://www.googletagmanager.com/gtag/js?id=G-QJ55EGXKBS';
-  document.head.appendChild(tag);
+  var consentKey = 'esl_analytics_consent_v1';
+  var staffKey = 'esl_staff_browser_v1';
+  var maxAge = 180 * 24 * 60 * 60 * 1000;
+  var measurement = 'G-QJ55EGXKBS';
+  var production = ['everystarlearning.co.uk', 'www.everystarlearning.co.uk'].includes(location.hostname);
+  var staffPage = location.pathname === '/staff-browser.html';
+  var loaded = false, choice = readChoice();
+  function read(key) { try { return localStorage.getItem(key); } catch (_) { return null; } }
+  function write(key, value) { try { localStorage.setItem(key, value); return true; } catch (_) { return false; } }
+  function readChoice() {
+    try {
+      var c = JSON.parse(read(consentKey));
+      return c && ['granted','denied'].includes(c.value) && typeof c.time === 'number' && c.time <= Date.now() && Date.now() - c.time < maxAge ? c.value : null;
+    } catch (_) { return null; }
+  }
+  function isStaff() { return read(staffKey) === 'on'; }
+  function permitted() { return choice === 'granted'; }
+  function removeAnalyticsCookies() {
+    document.cookie.split(';').forEach(function (item) {
+      var name = item.trim().split('=')[0];
+      if (!/^_ga(?:_|$)|^_gid$|^_gat(?:_|$)/.test(name)) return;
+      ['', location.hostname, '.' + location.hostname, 'everystarlearning.co.uk', '.everystarlearning.co.uk'].forEach(function (domain) {
+        document.cookie = name + '=; Max-Age=0; path=/; SameSite=Lax' + (domain ? '; domain=' + domain : '');
+      });
+    });
+  }
+  function startAnalytics() {
+    if (loaded || !production || staffPage || isStaff() || !permitted()) return;
+    loaded = true;
+    window['ga-disable-' + measurement] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', {analytics_storage:'denied', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
+    window.gtag('consent', 'update', {analytics_storage:'granted', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
+    window.gtag('js', new Date());
+    window.gtag('config', measurement, {allow_google_signals:false, allow_ad_personalization_signals:false, cookie_expires:15552000});
+    var tag = document.createElement('script'); tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurement;
+    document.head.appendChild(tag);
+  }
+  var panel;
+  function showChoice() {
+    if (!panel) return;
+    panel.hidden = false;
+    panel.querySelector('h2').focus();
+  }
+  function choose(value) {
+    choice = value;
+    write(consentKey, JSON.stringify({value:value, time:Date.now()}));
+    panel.hidden = true;
+    var settingsButton = document.querySelector('[data-cookie-settings]');
+    if (settingsButton) settingsButton.focus();
+    if (value === 'granted') startAnalytics();
+    else {
+      window['ga-disable-' + measurement] = true;
+      if (loaded) window.gtag('consent', 'update', {analytics_storage:'denied', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
+      removeAnalyticsCookies();
+      if (loaded) location.reload();
+    }
+  }
+  function initialise() {
+    panel = document.createElement('section');
+    panel.className = 'cookie-panel'; panel.setAttribute('aria-labelledby','cookie-title');
+    panel.hidden = Boolean(choice) || isStaff() || staffPage;
+    panel.innerHTML = '<div><h2 id="cookie-title" tabindex="-1">A choice about cookies</h2><p>May we use Google Analytics to understand visits and clicks to our Etsy shop? Optional analytics stays off unless you accept. Shopping works either way. <a href="privacy.html">Privacy &amp; cookies</a></p></div><div class="cookie-actions"><button type="button" data-consent="denied">Reject analytics</button><button type="button" data-consent="granted">Accept analytics</button></div>';
+    document.body.appendChild(panel);
+    panel.querySelectorAll('[data-consent]').forEach(function(b) { b.addEventListener('click',function(){choose(b.dataset.consent);}); });
+    document.querySelectorAll('[data-cookie-settings]').forEach(function(b) { b.addEventListener('click',showChoice); });
+    document.querySelectorAll('[data-staff-setting]').forEach(function(b) { b.addEventListener('click',function(){
+      var enabled = b.dataset.staffSetting === 'on';
+      if (!write(staffKey,enabled ? 'on' : 'off')) {
+        document.getElementById('staff-status').textContent = 'This browser is blocking local storage. The staff setting could not be saved. Keep analytics rejected here.'; return;
+      }
+      if (enabled) { window['ga-disable-' + measurement] = true; removeAnalyticsCookies(); }
+      renderStaffStatus();
+    }); });
+    renderStaffStatus();
+    if (!permitted() || isStaff()) { window['ga-disable-' + measurement] = true; removeAnalyticsCookies(); }
+    startAnalytics();
+  }
+  function renderStaffStatus() {
+    var status = document.getElementById('staff-status');
+    if (status) status.textContent = isStaff() ? 'Staff mode is ON. This browser sends no Google Analytics visits or Etsy clicks.' : 'Staff mode is OFF. Analytics follows the cookie choice in this browser.';
+  }
   var pageNames = {
     '/space-activity-printables.html': 'space_activity_printables',
     '/pretend-play-printables.html': 'pretend_play_printables',
@@ -22,6 +97,7 @@
     '/send-home-education-resources.html': 'send_home_education'
   };
   function recordEtsyClick(event) {
+    if (!loaded || !permitted() || isStaff()) return;
     if (event.type === 'auxclick' && event.button !== 1) return;
     var link = event.target.closest && event.target.closest('a[href]');
     if (!link) return;
@@ -38,6 +114,13 @@
       transport_type: 'beacon'
     });
   }
+  window.addEventListener('storage', function (event) {
+    if (event.key === consentKey || event.key === staffKey || event.key === null) {
+      window['ga-disable-' + measurement] = true;
+      location.reload();
+    }
+  });
   document.addEventListener('click', recordEtsyClick);
   document.addEventListener('auxclick', recordEtsyClick);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',initialise); else initialise();
 })();
