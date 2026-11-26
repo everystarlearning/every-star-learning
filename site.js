@@ -106,13 +106,16 @@
     if (url.hostname !== 'www.etsy.com' && url.hostname !== 'etsy.com') return;
     var placement = link.dataset.etsyLocation || (link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('.product') ? 'product_card' : link.closest('.hero') ? 'hero' : link.closest('.review-band') ? 'review' : link.closest('.seasonal') ? 'seasonal' : link.closest('.closing') ? 'closing' : 'page_cta');
     var product = url.pathname.match(/\/listing\/(\d+)/);
-    window.gtag('event', 'etsy_click', {
+    var details = {
       page_name: pageNames[location.pathname] || 'other',
       cta_location: placement,
       link_domain: 'etsy.com',
       product_id: product ? product[1] : 'shop',
       transport_type: 'beacon'
-    });
+    };
+    window.gtag('event', 'etsy_click', details);
+    // Separate purchase-intent clicks from shop/review browsing; neither is a sale.
+    window.gtag('event', product ? 'etsy_product_click' : url.hash === '#reviews' ? 'etsy_review_click' : 'etsy_shop_click', details);
   }
   window.addEventListener('storage', function (event) {
     if (event.key === consentKey || event.key === staffKey || event.key === null) {
