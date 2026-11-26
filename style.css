@@ -30,3 +30,4 @@
 
 /* Keep enlarged text within its grid and allow prices/actions to wrap. */
 .footer-grid>*{min-width:0;overflow-wrap:anywhere}.hero-grid>*,.feature-grid>*,.seasonal>*,.editorial>*,.review-grid>*{min-width:0}.actions,.featured-caption,.product-title{flex-wrap:wrap}h1,h2,h3,.product-title>*{overflow-wrap:anywhere}.product-title>*{min-width:0}.product-title strong{flex-shrink:0}
+.privacy-content{overflow-wrap:anywhere}
