@@ -88,6 +88,12 @@
     if (status) status.textContent = isStaff() ? 'Staff mode is ON. This browser sends no Google Analytics visits or Etsy clicks.' : 'Staff mode is OFF. Analytics follows the cookie choice in this browser.';
   }
   var pageNames = {
+    '/santa-door-hanger-printables.html': 'santa_door_hanger_printables',
+    '/christmas-cards-to-colour.html': 'christmas_cards_to_colour',
+    '/christmas-gift-tag-printables.html': 'christmas_gift_tag_printables',
+    '/vintage-christmas-bunting-printable.html': 'vintage_christmas_bunting_printable',
+    '/christmas-tree-handprint-printable.html': 'christmas_tree_handprint_printable',
+    '/winter-colouring-bunting-printable.html': 'winter_colouring_bunting_printable',
     '/space-study-workbook-ages-5-11.html': 'space_study_workbook_ages_5_11',
     '/space-activity-workbook-ages-3-5.html': 'space_activity_workbook_ages_3_5',
     '/printable-number-cards-1-20.html': 'printable_number_cards_1_20',
